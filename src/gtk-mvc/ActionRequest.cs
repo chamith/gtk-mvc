@@ -6,8 +6,8 @@ using System.Diagnostics;
 using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
-using Bizline.MVC.Configuration;
-namespace Bizline.MVC
+using Gtk.Mvc.Configuration;
+namespace Gtk.Mvc
 {
 	public class ActionRequest
 	{

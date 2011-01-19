@@ -1,6 +1,6 @@
 using System;
 using System.Reflection;
-namespace Bizline.MVC
+namespace Gtk.Mvc
 {
 	public class AssemblyCashItem
 	{

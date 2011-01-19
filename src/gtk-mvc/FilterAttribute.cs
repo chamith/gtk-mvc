@@ -1,6 +1,6 @@
 
 using System;
-namespace Bizline.MVC
+namespace Gtk.Mvc
 {
 	[AttributeUsage (AttributeTargets.Class, Inherited = true, AllowMultiple = true)]
 	public sealed class FilterAttribute : Attribute

@@ -1,6 +1,6 @@
 
 using System;
-namespace Bizline.MVC
+namespace Gtk.Mvc
 {
 	public enum FilterResult
 	{

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Specialized;
 using System.Text;
-namespace Bizline.MVC
+namespace Gtk.Mvc
 {
 	public class ValidationErrors:StringCollection
 	{

@@ -1,6 +1,6 @@
 
 using System;
-namespace Bizline.MVC
+namespace Gtk.Mvc
 {
 	[AttributeUsage (AttributeTargets.Method, Inherited = false, AllowMultiple = true)]
 	public sealed class IgnoreFilterAttribute: Attribute

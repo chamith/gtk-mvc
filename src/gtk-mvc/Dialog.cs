@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using Gtk;
-namespace Bizline.MVC
+namespace Gtk.Mvc
 {
 	public abstract class Dialog:Gtk.Dialog, IView
 	{

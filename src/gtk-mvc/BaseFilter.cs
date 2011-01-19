@@ -1,5 +1,5 @@
 using System;
-namespace Bizline.MVC
+namespace Gtk.Mvc
 {
 	public abstract class BaseFilter
 	{

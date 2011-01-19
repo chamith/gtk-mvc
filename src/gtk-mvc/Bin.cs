@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-namespace Bizline.MVC
+namespace Gtk.Mvc
 {
 	public abstract class Bin:Gtk.Bin,IView
 	{

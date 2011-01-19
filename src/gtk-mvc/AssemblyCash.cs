@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-namespace Bizline.MVC
+namespace Gtk.Mvc
 {
 	public class AssemblyCash:KeyedCollection<string, AssemblyCashItem>
 	{

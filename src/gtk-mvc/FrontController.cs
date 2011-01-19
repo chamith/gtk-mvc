@@ -5,9 +5,9 @@ using System.Diagnostics;
 using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
-using Bizline.MVC.Configuration;
-using Membership;
-namespace Bizline.MVC
+using Gtk.Mvc.Configuration;
+
+namespace Gtk.Mvc
 {
 	public class FrontController
 	{
@@ -22,7 +22,7 @@ namespace Bizline.MVC
 			_assemblyCash = new AssemblyCash();
 			
             System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            MVCConfiguration mvcConfig = (MVCConfiguration)config.GetSection("bizline/mvc");
+            MVCConfiguration mvcConfig = (MVCConfiguration)config.GetSection("gtk.mvc");
 			
             for (int i = 0; i < mvcConfig.Assemblies.Count; i++)
             {
