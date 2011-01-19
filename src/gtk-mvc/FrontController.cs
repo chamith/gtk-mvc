@@ -187,7 +187,7 @@ namespace Gtk.Mvc
 		/// <param name="args">
 		/// A <see cref="params object[]"/> containing the arguments to be passed to the action.
 		/// </param>
-		public static void Invoke(string area, string controller, string action, IView referrer, params object[] args)
+		public static void Invoke(string area, string controller, string action, IView referrer, string callback, params object[] args)
 		{			
 			BaseController controllerObj = GetController(area, controller);
 			
@@ -200,6 +200,7 @@ namespace Gtk.Mvc
 			controllerObj.Area = area;
 			controllerObj.Controller = controller;
 			controllerObj.CurrentAction = action;
+			controllerObj.CallbackMethod = callback;
 			controllerObj.Output = new ViewOutputModel();
 			controllerObj.Request = new ActionRequest()
 			{
@@ -221,87 +222,8 @@ namespace Gtk.Mvc
 				
 			FilterResult result = ExecuteFilters(controllerObj, methodInfo);
 			if(result != FilterResult.CancelAction) methodInfo.Invoke(controllerObj, args);
-//			if(result != FilterResult.CancelAction)
-//			{
-//				controllerObj.GetType().InvokeMember
-//				(
-//	                 action, 
-//	                 BindingFlags.InvokeMethod|BindingFlags.ExactBinding|BindingFlags.IgnoreCase, 
-//	                 null, 
-//	                 controllerObj, 
-//	                 args
-//				);
-//			}
 		}
 		
-		/// <summary>
-		/// Invokes the specified action in a given controller.
-		/// </summary>
-		/// <param name="controller">
-		/// A <see cref="System.String"/> specifying the name of the controller.
-		/// </param>
-		/// <param name="action">
-		/// A <see cref="System.String"/> specifying the name of the action.
-		/// </param>
-		/// <param name="referrer">
-		/// A <see cref="IView"/> representing the referrer of the action.
-		/// </param>
-		/// <param name="args">
-		/// A <see cref="params object[]"/> containing the arguments to be passed to the action.
-		/// </param>
-		public static void Invoke(string controller, string action, IView referrer, params object[] args)
-		{
-			Invoke(string.Empty, controller, action, referrer, args);
-		}
-
-
-		/// <summary>
-		/// Invokes the specified action in a given controller.
-		/// </summary>
-		/// <param name="controller">
-		/// A <see cref="System.String"/> specifying the name of the controller.
-		/// </param>
-		/// <param name="action">
-		/// A <see cref="System.String"/> specifying the name of the action.
-		/// </param>
-		/// <param name="args">
-		/// A <see cref="Hashtable"/> containing the arguments to be passed to the action.
-		/// </param>
-		public static void Invoke(string controller, string action, Hashtable args)
-		{
-			Invoke(string.Empty, controller, action, null, args);
-		}
-		
-		/// <summary>
-		/// Invokes the specified action in a given controller.
-		/// </summary>
-		/// <param name="controller">
-		/// A <see cref="System.String"/> specifying the name of the controller.
-		/// </param>
-		/// <param name="action">
-		/// A <see cref="System.String"/> specifying the name of the action.
-		/// </param>
-		/// <param name="referrer">
-		/// A <see cref="IView"/> representing the referrer of the action.
-		/// </param>
-		public static void Invoke(string controller, string action, IView referrer)
-		{
-			Invoke(string.Empty, controller, action, referrer, null);
-		}
-		
-		/// <summary>
-		/// Invokes the specified action in a given controller.
-		/// </summary>
-		/// <param name="controller">
-		/// A <see cref="System.String"/> specifying the name of the controller.
-		/// </param>
-		/// <param name="action">
-		/// A <see cref="System.String"/> specifying the name of the action.
-		/// </param>
-		public static void Invoke(string controller, string action)
-		{
-			Invoke(string.Empty, controller, action, null, null);
-		}
 		
 		private static FilterResult ExecuteFilters(BaseController controllerObj, MethodInfo methodInfo)
 		{
