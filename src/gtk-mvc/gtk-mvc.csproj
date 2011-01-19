@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{14A017EE-92AB-49C1-A12B-8912F6822812}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>gtkmvc</RootNamespace>
+    <AssemblyName>gtk-mvc</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="gtk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Package>gtk-sharp-2.0</Package>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="ActionRequest.cs" />
+    <Compile Include="ApplicationContext.cs" />
+    <Compile Include="AssemblyCash.cs" />
+    <Compile Include="AssemblyCashItem.cs" />
+    <Compile Include="BaseController.cs" />
+    <Compile Include="BaseFilter.cs" />
+    <Compile Include="Bin.cs" />
+    <Compile Include="Dialog.cs" />
+    <Compile Include="FilterAttribute.cs" />
+    <Compile Include="FilterResult.cs" />
+    <Compile Include="FrontController.cs" />
+    <Compile Include="IController.cs" />
+    <Compile Include="IgnoreFilterAttribute.cs" />
+    <Compile Include="IView.cs" />
+    <Compile Include="ValidationErrors.cs" />
+    <Compile Include="ViewContextModel.cs" />
+    <Compile Include="ViewInputModel.cs" />
+    <Compile Include="ViewOutputModel.cs" />
+    <Compile Include="Window.cs" />
+    <Compile Include="Configuration\AssemblyConfiguration.cs" />
+    <Compile Include="Configuration\AssemblyConfigurationCollection.cs" />
+    <Compile Include="Configuration\MVCConfiguration.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>
