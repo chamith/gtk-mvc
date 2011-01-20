@@ -11,6 +11,8 @@ namespace Gtk.Mvc
 {
 	public class FrontController
 	{
+		static log4net.ILog log = log4net.LogManager.GetLogger(typeof(FrontController));
+		
 		public static ApplicationContext ApplicationContext { get; private set; }
 
 		public static AssemblyCash _assemblyCash;
@@ -23,7 +25,7 @@ namespace Gtk.Mvc
 			
 			for (int i = 0; i < mvcConfig.Assemblies.Count; i++) {
 				AssemblyConfiguration assConfig = mvcConfig.Assemblies[i] as AssemblyConfiguration;
-				AssemblyCashItem cashItem = new AssemblyCashItem { Name = assConfig.Name, ControllerRootNamespace = assConfig.ControllerRootNamespace, ViewRootNamespace = assConfig.ViewRootNamespace };
+				AssemblyCashItem cashItem = new AssemblyCashItem { Name = assConfig.Name, ControllerRootNamespace = assConfig.ControllerRootNamespace, ViewRootNamespace = assConfig.ViewRootNamespace, RootArea = assConfig.RootArea };
 				
 				cashItem.Assembly = Assembly.Load (assConfig.AssemblyName);
 				_assemblyCash.Add (cashItem);
@@ -32,11 +34,16 @@ namespace Gtk.Mvc
 			FrontController.ApplicationContext = new ApplicationContext ();
 		}
 
-		public static BaseController CreateControllerInstance (string typeFullName)
+		public static BaseController CreateControllerInstance (string areaRoot, string typeFullName)
 		{
 			BaseController instance = null;
-			
+			log.DebugFormat("Trying to create an instance of controller {0} in an assembly with areaRoot {1}", typeFullName, areaRoot);
 			foreach (AssemblyCashItem cashItem in _assemblyCash) {
+			
+				log.DebugFormat("looking at assembly {0}", cashItem.Name);
+				
+				if(areaRoot != cashItem.RootArea)
+					continue;
 				instance = cashItem.Assembly.CreateInstance (cashItem.ControllerRootNamespace + "." + typeFullName, true) as BaseController;
 				if (instance != null)
 					return instance;
@@ -61,13 +68,27 @@ namespace Gtk.Mvc
 		public static BaseController GetController (string area, string controller)
 		{
 			string typeFullName = null;
-			
+			string areaRoot = string.Empty;
 			if (string.IsNullOrEmpty (area))
 				typeFullName = string.Format ("{0}Controller", controller);
 			else
-				typeFullName = string.Format ("{0}.{1}Controller", area, controller);
+			{
+				int periodIndex = area.IndexOf('.');
+				
+				if(periodIndex < 0)
+				{
+					areaRoot = area;
+					typeFullName = string.Format ("{0}Controller", controller);
+				}
+				else
+				{
+					areaRoot = area.Substring(0, periodIndex);
+					typeFullName = string.Format ("{0}.{1}Controller", area.Substring(periodIndex + 1), controller);
+				}
+
+			}
 			
-			return CreateControllerInstance (typeFullName) as BaseController;
+			return CreateControllerInstance (areaRoot, typeFullName) as BaseController;
 		}
 
 		public static IView GetView (string area, string controller, string view)

@@ -24,6 +24,10 @@ namespace Gtk.Mvc
 			set;
 		}
 
+		public string RootArea {
+			get;
+			set;
+		}
 	}
 }
 

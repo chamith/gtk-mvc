@@ -101,13 +101,13 @@ namespace Gtk.Mvc
 		{
 			this.RenderView(this.CallbackView, this.CallbackMethod, args);
 		}
-		public void InvokeWithCallback(string action, IView referrer, IView callbackView, string callbackMethodName, params object[] args)
+		public void InvokeWithCallback(string action, IView callbackView, string callbackMethodName, params object[] args)
 		{
-			FrontController.InvokeWithCallback(action, referrer, callbackView, callbackMethodName, args);
+			FrontController.InvokeWithCallback(action, this.Referrer, callbackView, callbackMethodName, args);
 		}
-		public void Invoke(string action, IView referrer, params object[] args)
+		public void Invoke(string action, params object[] args)
 		{
-			FrontController.Invoke(action, referrer, args);
+			FrontController.Invoke(action, this.Referrer, args);
 		}
 
 	}

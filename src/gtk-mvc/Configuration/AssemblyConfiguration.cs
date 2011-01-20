@@ -44,5 +44,14 @@ namespace Gtk.Mvc.Configuration
                 return (string)this["viewRootNamespace"];
             }
         }
-    }
+		
+		[ConfigurationProperty("rootArea")]
+        public string RootArea
+        {
+            get
+            {
+                return (string)this["rootArea"];
+            }
+        }    
+	}
 }
