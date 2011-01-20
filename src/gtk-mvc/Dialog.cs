@@ -21,7 +21,16 @@ namespace Gtk.Mvc
 			}
 		}
 		#endregion		
+				public void InvokeWithCallback(string action, IView callbackView, string callbackMethodName, params object[] args)
+		{
+			FrontController.InvokeWithCallback(action, this, callbackView, callbackMethodName, args);
+		}
 		
+		public void InvokeWithoutCallback(string action, params object[] args)
+		{
+			FrontController.InvokeWithoutCallback(action, this, args);
+		}
+
 		public Dialog()
 		{
 			this.DeleteEvent += delegate(object o, DeleteEventArgs args) {

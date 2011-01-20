@@ -200,6 +200,7 @@ namespace Gtk.Mvc
 			controllerObj.Area = area;
 			controllerObj.Controller = controller;
 			controllerObj.CurrentAction = action;
+			controllerObj.CallbackView = referrer;
 			controllerObj.CallbackMethod = callback;
 			controllerObj.Output = new ViewOutputModel();
 			controllerObj.Request = new ActionRequest()
@@ -224,7 +225,63 @@ namespace Gtk.Mvc
 			if(result != FilterResult.CancelAction) methodInfo.Invoke(controllerObj, args);
 		}
 		
+		public static void InvokeWithCallback(string action, IView referrer, IView callbackView, string callbackMethodName, params object[] args)
+		{
+			string[] actionElements = action.Split('/');
+			int elementCount = actionElements.Length;
+			
+			if(elementCount < 2)
+				throw new ArgumentException("action string is incomplete");
+			
+			string actionElement = actionElements[elementCount - 1];
+			string controllerElement = actionElements[elementCount - 2];
+			string areaElement = string.Empty;
+			if(elementCount > 2)
+				areaElement = actionElements[elementCount - 3];
+			
+			
+			BaseController controllerObj = GetController(areaElement, controllerElement);
+			
+			if(controllerObj == null)
+				throw new ArgumentNullException(
+				                                string.Format("{0}.{1}", areaElement, controllerElement), 
+				                                string.Format("{0}.{1}Controller cannot be found.", areaElement, controllerElement)
+				                                );
+			
+			controllerObj.Area = areaElement;
+			controllerObj.Controller = controllerElement;
+			controllerObj.CurrentAction = actionElement;
+			controllerObj.CallbackView = callbackView;
+			controllerObj.CallbackMethod = callbackMethodName;
+			controllerObj.Output = new ViewOutputModel();
+			controllerObj.Request = new ActionRequest()
+			{
+				View = referrer
+			};
+			
+			MethodInfo methodInfo;
+			
+			if(args == null)
+				methodInfo = controllerObj.GetType().GetMethod(actionElement);
+			else
+			{
+				Type[] paramTypes = new Type[args.Length];
+				for(int i=0;i<paramTypes.Length;i++)
+				paramTypes[i] = args[i].GetType();
+				
+				methodInfo = controllerObj.GetType().GetMethod(actionElement, paramTypes);
+			}
+				
+			FilterResult result = ExecuteFilters(controllerObj, methodInfo);
+			if(result != FilterResult.CancelAction) methodInfo.Invoke(controllerObj, args);
+
+
+		}
 		
+		public static void InvokeWithoutCallback(string action, IView referrer, params object[] args)
+		{
+			InvokeWithCallback(action, referrer, null, null, args);
+		}
 		private static FilterResult ExecuteFilters(BaseController controllerObj, MethodInfo methodInfo)
 		{
 

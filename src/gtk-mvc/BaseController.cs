@@ -30,6 +30,11 @@ namespace Gtk.Mvc
 			get;
 			set;
 		}
+		
+		public IView CallbackView {
+			get;
+			set;
+		}
 		//public Hashtable Context{get;internal set;}
 		
 		public ActionRequest Request {get;internal set;}
@@ -89,12 +94,12 @@ namespace Gtk.Mvc
 		
 		public void Callback()
 		{
-			this.RenderView(this.Referrer, this.CallbackMethod, this.Output);
+			this.RenderView(this.CallbackView, this.CallbackMethod, this.Output);
 		}
 		
 		public void Callback(params object[] args)
 		{
-			this.RenderView(this.Referrer, this.CallbackMethod, args);
+			this.RenderView(this.CallbackView, this.CallbackMethod, args);
 		}
 		public void Invoke(string area, string controller, string action, IView referrer, string callback, params object[] args)
 		{
