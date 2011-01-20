@@ -63,7 +63,7 @@
     <Compile Include="Window.cs" />
     <Compile Include="Configuration\AssemblyConfiguration.cs" />
     <Compile Include="Configuration\AssemblyConfigurationCollection.cs" />
-    <Compile Include="Configuration\MVCConfiguration.cs" />
+    <Compile Include="Configuration\MvcConfiguration.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

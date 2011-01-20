@@ -21,7 +21,7 @@ namespace Gtk.Mvc
 			_assemblyCash = new AssemblyCash ();
 			
 			System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration (ConfigurationUserLevel.None);
-			MVCConfiguration mvcConfig = (MVCConfiguration)config.GetSection ("gtk.mvc");
+			MvcConfiguration mvcConfig = (MvcConfiguration)config.GetSection ("gtk.mvc");
 			
 			for (int i = 0; i < mvcConfig.Assemblies.Count; i++) {
 				AssemblyConfiguration assConfig = mvcConfig.Assemblies[i] as AssemblyConfiguration;

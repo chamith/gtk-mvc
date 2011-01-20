@@ -6,7 +6,7 @@ using System.Configuration;
 
 namespace Gtk.Mvc.Configuration
 {
-    public class MVCConfiguration:ConfigurationSection
+    public class MvcConfiguration:ConfigurationSection
     {
 
         [ConfigurationProperty("assemblies")]
