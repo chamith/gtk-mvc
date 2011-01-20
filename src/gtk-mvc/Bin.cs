@@ -26,9 +26,9 @@ namespace Gtk.Mvc
 			FrontController.InvokeWithCallback(action, this, callbackView, callbackMethodName, args);
 		}
 		
-		public void InvokeWithoutCallback(string action, params object[] args)
+		public void Invoke(string action, params object[] args)
 		{
-			FrontController.InvokeWithoutCallback(action, this, args);
+			FrontController.Invoke(action, this, args);
 		}
 	}
 	
@@ -43,5 +43,6 @@ namespace Gtk.Mvc
 			set;
 		}
 	}
+	
 }
 
