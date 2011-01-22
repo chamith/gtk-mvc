@@ -9,6 +9,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>gtkmvc</RootNamespace>
     <AssemblyName>gtk-mvc</AssemblyName>
+    <ReleaseVersion>0.1.2</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

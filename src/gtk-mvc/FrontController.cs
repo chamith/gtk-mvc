@@ -52,6 +52,24 @@ namespace Gtk.Mvc
 			return instance;
 		}
 
+		public static IView CreateViewInstance (string areaRoot, string typeFullName)
+		{
+			IView instance = null;
+			log.DebugFormat("Trying to create an instance of controller {0} in an assembly with areaRoot {1}", typeFullName, areaRoot);
+			foreach (AssemblyCashItem cashItem in _assemblyCash) {
+			
+				log.DebugFormat("looking at assembly {0}", cashItem.Name);
+				
+				if(areaRoot != cashItem.RootArea)
+					continue;
+				instance = cashItem.Assembly.CreateInstance (cashItem.ViewRootNamespace + "." + typeFullName, true) as IView;
+				if (instance != null)
+					return instance;
+			}
+			
+			return instance;
+		}
+
 		public static IView CreateViewInstance (string typeFullName)
 		{
 			IView instance = null;
@@ -90,19 +108,44 @@ namespace Gtk.Mvc
 			
 			return CreateControllerInstance (areaRoot, typeFullName) as BaseController;
 		}
-
+		
 		public static IView GetView (string area, string controller, string view)
 		{
-			IView viewObj = null;
 			string typeFullName = null;
-			
+			string areaRoot = string.Empty;
 			if (string.IsNullOrEmpty (area))
 				typeFullName = string.Format ("{0}.{1}", controller, view);
 			else
-				typeFullName = string.Format ("{0}.{1}.{2}", area, controller, view);
+			{
+				int periodIndex = area.IndexOf('.');
+				
+				if(periodIndex < 0)
+				{
+					areaRoot = area;
+					typeFullName = string.Format ("{0}.{1}", controller, view);
+				}
+				else
+				{
+					areaRoot = area.Substring(0, periodIndex);
+					typeFullName = string.Format ("{0}.{1}.{2}", area.Substring(periodIndex + 1), controller, view);
+				}
+
+			}
 			
-			return CreateViewInstance (typeFullName) as IView;
-		}
+			return CreateViewInstance (areaRoot, typeFullName) as IView;
+		}		
+//		public static IView GetView (string area, string controller, string view)
+//		{
+//			IView viewObj = null;
+//			string typeFullName = null;
+//			
+//			if (string.IsNullOrEmpty (area))
+//				typeFullName = string.Format ("{0}.{1}", controller, view);
+//			else
+//				typeFullName = string.Format ("{0}.{1}.{2}", area, controller, view);
+//			
+//			return CreateViewInstance (typeFullName) as IView;
+//		}
 
 		public static void RenderView (string area, string controller, string view, ViewOutputModel output)
 		{
