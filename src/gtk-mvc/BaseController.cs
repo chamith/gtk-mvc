@@ -94,12 +94,13 @@ namespace Gtk.Mvc
 		
 		public void Callback()
 		{
-			this.RenderView(this.CallbackView, this.CallbackMethod, this.Output);
+			this.Callback(this.Output);
 		}
 		
 		public void Callback(params object[] args)
 		{
-			this.RenderView(this.CallbackView, this.CallbackMethod, args);
+			if(this.CallbackView != null && this.CallbackMethod != null)
+				this.RenderView(this.CallbackView, this.CallbackMethod, args);
 		}
 		public void InvokeWithCallback(string action, IView callbackView, string callbackMethodName, params object[] args)
 		{
