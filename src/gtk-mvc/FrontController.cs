@@ -269,6 +269,8 @@ namespace Gtk.Mvc
 
 		public static void InvokeWithCallback (string action, IView referrer, IView callbackView, string callbackMethodName, params object[] args)
 		{
+			log.DebugFormat("Invoking '{0}'", action);
+			
 			string[] actionElements = action.Split ('/');
 			int elementCount = actionElements.Length;
 			
